@@ -25,8 +25,8 @@ class RESTSession(object):
     def __init__(self, username, password, uri='https://owner-api.teslamotors.com'):
         self.uri = urllib.parse.urljoin(uri, '')
         self.username = username
-        self.login(password)
         self.sess = requests.Session()
+        self.login(password)
 
     def login(self, password):
         """
