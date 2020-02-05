@@ -3,14 +3,13 @@ import sys
 import yaml
 from car_rest import RESTSession
 
-
-
 if __name__ == '__main__':
     username = 'hay.steve@gmail.com'
     print("Password:")
     password = sys.stdin.readline().strip()
 
-    endpoints = ['vehicle_data', 'service_data', 'data_request/charge_state', 'data_request/climate_state', 'data_request/drive_state', 'data_request/gui_settings']
+    endpoints = ['vehicle_data', 'service_data', 'data_request/charge_state', 'data_request/climate_state',
+                 'data_request/drive_state', 'data_request/gui_settings']
 
     s = RESTSession(username, password)
     r = s.get('api/1/vehicles')
@@ -27,4 +26,3 @@ if __name__ == '__main__':
             info = yaml.safe_load(r.text)
             print("Endpoint: {}".format(endpoint))
             print(yaml.dump(info))
-
