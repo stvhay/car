@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
+import argparse
 import sys
 import yaml
 from car_rest import RESTSession
 
 if __name__ == '__main__':
-    username = 'hay.steve@gmail.com'
+    parser = argparse.ArgumentParser()
+    parser.add_argument("username")
+    args = parser.parse_args()
+    username = args.username
+    
     print("Password:")
     password = sys.stdin.readline().strip()
 
