@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import getpass
 import sys
 import yaml
 from car_rest import RESTSession
@@ -9,9 +10,7 @@ if __name__ == '__main__':
     parser.add_argument("username")
     args = parser.parse_args()
     username = args.username
-    
-    print("Password:")
-    password = sys.stdin.readline().strip()
+    password = getpass.getpass()
 
     endpoints = ['vehicle_data', 'service_data', 'data_request/charge_state', 'data_request/climate_state',
                  'data_request/drive_state', 'data_request/gui_settings']
