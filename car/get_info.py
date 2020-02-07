@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import yaml
-from car_rest import RESTSession
+from car.car_rest import RESTSession
 
 if __name__ == '__main__':
     username = 'hay.steve@gmail.com'
