@@ -25,8 +25,12 @@ class RESTSession(object):
     def __init__(self, username, password, uri='https://owner-api.teslamotors.com'):
         self.uri = urllib.parse.urljoin(uri, '')
         self.username = username
-        self.login(password)
         self.sess = requests.Session()
+        self.sess.headers.update({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
+        })
+        self.login(password)
 
     def login(self, password):
         """
@@ -35,10 +39,6 @@ class RESTSession(object):
         """
         endpoint = 'oauth/token'
         auth_uri = urllib.parse.urljoin(self.uri, endpoint)
-        self.sess.headers.update({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        })
         d = json.dumps({
             'grant_type': "password",
             'client_id': RESTSession.TESLA_CLIENT_ID,
@@ -65,10 +65,6 @@ class RESTSession(object):
         :param params: URL parameters
         :return: Returns response object.
         """
-        if params is None:
-            params = {}
-        if data is None:
-            data = {}
         full_uri = urllib.parse.urljoin(self.uri, uri)
         return self.sess.post(full_uri, data=data, params=params)
 
@@ -79,8 +75,6 @@ class RESTSession(object):
         :param params: URL parameters
         :return: Returns response object.
         """
-        if params is None:
-            params = {}
         full_uri = urllib.parse.urljoin(self.uri, uri)
         return self.sess.get(full_uri, params=params)
 
@@ -92,10 +86,6 @@ class RESTSession(object):
         :param params: URL parameters
         :return: Returns response object.
         """
-        if params is None:
-            params = {}
-        if data is None:
-            data = {}
         full_uri = urllib.parse.urljoin(self.uri, uri)
         return self.sess.patch(full_uri, data=data, params=params)
 
@@ -107,10 +97,6 @@ class RESTSession(object):
         :param params: URL parameters
         :return: Returns response object.
         """
-        if params is None:
-            params = {}
-        if data is None:
-            data = {}
         full_uri = urllib.parse.urljoin(self.uri, uri)
         return self.sess.put(full_uri, data=data, params=params)
 
@@ -122,9 +108,5 @@ class RESTSession(object):
         :param params: URL parameters
         :return: Returns response object.
         """
-        if params is None:
-            params = {}
-        if data is None:
-            data = {}
         full_uri = urllib.parse.urljoin(self.uri, uri)
         return self.sess.delete(full_uri, data=data, params=params)
