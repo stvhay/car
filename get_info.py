@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import getpass
-import sys
 import yaml
 from car_rest import RESTSession
 
@@ -12,21 +11,20 @@ if __name__ == '__main__':
     username = args.username
     password = getpass.getpass()
 
+    d = {}
     endpoints = ['vehicle_data', 'service_data', 'data_request/charge_state', 'data_request/climate_state',
                  'data_request/drive_state', 'data_request/gui_settings']
 
     s = RESTSession(username, password)
     r = s.get('api/1/vehicles')
-    vehicles = yaml.safe_load(r.text)
-    print()
-    print("Vehicle List")
-    print(yaml.dump(vehicles))
+    d['vehicles'] = yaml.safe_load(r.text)['response']
 
-    for v in vehicles['response']:
-        print()
+    d['vehicle'] = {}
+    for v in d['vehicles']:
         v_id = v['id']
+        entry = d['vehicle'][v_id] = {}
         for endpoint in endpoints:
-            r = s.get('api/1/vehicles/{}/{}'.format(v_id, endpoint))
+            r = s.get('api/1/vehicles/{v}/{e}'.format(v=v_id, e=endpoint))
             info = yaml.safe_load(r.text)
-            print("Endpoint: {}".format(endpoint))
-            print(yaml.dump(info))
+            entry[endpoint] = info
+    print(yaml.dump(d))
