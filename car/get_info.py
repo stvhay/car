@@ -2,7 +2,7 @@
 import argparse
 import getpass
 import yaml
-from car_rest import RESTSession
+from car.car_rest import RESTSession
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
