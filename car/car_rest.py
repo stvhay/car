@@ -1,7 +1,6 @@
-#!/usr/bin/env python3
+"""car_rest.py"""
 import json
 import requests
-import getpass
 import urllib.parse
 
 

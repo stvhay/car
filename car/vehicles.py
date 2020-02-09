@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
+"""vehicles.py"""
 import argparse
 import yaml
 
 import car
-import car.car_rest
 
 
 def main():
@@ -14,7 +13,7 @@ def main():
     parser.add_argument('-u', '--username', help='Specify username')
     args = parser.parse_args()
 
-    s = car.car_rest.RESTSession(*car.get_credentials(args))
+    s = car.RESTSession(*car.get_credentials(args))
     r = s.get('api/1/vehicles')
     d = {'vehicles': yaml.safe_load(r.text)['response']}
     print(yaml.dump(d))

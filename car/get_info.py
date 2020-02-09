@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
+"""get_info.py"""
 import argparse
 import yaml
 
 import car
-import car.car_rest
 
 
 def main():
@@ -18,7 +17,7 @@ def main():
     endpoints = ['vehicle_data', 'service_data', 'data_request/charge_state', 'data_request/climate_state',
                  'data_request/drive_state', 'data_request/gui_settings']
 
-    s = car.car_rest.RESTSession(*car.get_credentials(args))
+    s = car.RESTSession(*car.get_credentials(args))
     r = s.get('api/1/vehicles')
     d['vehicles'] = yaml.safe_load(r.text)['response']
 

@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
+"""vehicle.py"""
 import argparse
 import yaml
 
 import car
-import car.car_rest
 
 
 def main():
@@ -23,7 +22,7 @@ def main():
     except IOError:
         id_ = args.id
 
-    s = car.car_rest.RESTSession(*car.get_credentials(args))
+    s = car.RESTSession(*car.get_credentials(args))
     r = s.get('api/1/vehicles/{}'.format(id_))
     d = yaml.safe_load(r.text)['response']
     print(yaml.dump(d))
