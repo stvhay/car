@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import argparse
-import getpass
 import yaml
-from car.car_rest import RESTSession
+
+import car
+import car.car_rest
 
 
 def main():
@@ -13,25 +14,11 @@ def main():
     parser.add_argument('-u', '--username', help='Specify username')
     args = parser.parse_args()
 
-    try:
-        with open('.credentials') as f:
-            c = yaml.safe_load(f.read())
-            password = c.get('password')
-            if not password:
-                getpass.getpass("Password")
-            username = c.get('username')
-            if not username:
-                username = input("Username: ")
-            if args.username:
-                username = args.username
-    except IOError:
-        password = getpass.getpass()
-
     d = {}
     endpoints = ['vehicle_data', 'service_data', 'data_request/charge_state', 'data_request/climate_state',
                  'data_request/drive_state', 'data_request/gui_settings']
 
-    s = RESTSession(username, password)
+    s = car.car_rest.RESTSession(*car.get_credentials(args))
     r = s.get('api/1/vehicles')
     d['vehicles'] = yaml.safe_load(r.text)['response']
 

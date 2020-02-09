@@ -1,3 +1,4 @@
+"""# Module __main__"""
 import car.get_info
 
 if __name__ == '__main__':
