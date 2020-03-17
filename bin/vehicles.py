@@ -13,8 +13,8 @@ def main():
     parser.add_argument('-u', '--username', help='Specify username')
     args = parser.parse_args()
 
-    s = car.RESTSession(*car.get_credentials(args))
-    r = s.get('api/1/vehicles')
+    with car.RESTSession(*car.get_credentials(args)) as s:
+        r = s.get('api/1/vehicles')
     d = {'vehicles': yaml.safe_load(r.text)['response']}
     print(yaml.dump(d))
 

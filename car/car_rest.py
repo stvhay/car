@@ -32,6 +32,13 @@ class RESTSession(object):
         })
         self.login(password)
 
+    def __enter__(self):
+        self.sess.__enter__()
+        return self
+
+    def __exit__(self, *args):
+        self.sess.__exit__(*args)
+
     def login(self, password):
         """
         Logs into the API

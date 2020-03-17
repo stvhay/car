@@ -22,8 +22,8 @@ def main():
     except IOError:
         id_ = args.id
 
-    s = car.RESTSession(*car.get_credentials(args))
-    r = s.get('api/1/vehicles/{}'.format(id_))
+    with car.RESTSession(*car.get_credentials(args)) as s:
+        r = s.get('api/1/vehicles/{}'.format(id_))
     d = yaml.safe_load(r.text)['response']
     print(yaml.dump(d))
 
