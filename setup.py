@@ -1,8 +1,12 @@
 #!/usr/bin/env python
+"""
+setup.py
+"""
 
 import setuptools
 
-setuptools.setup(name='car',
+setuptools.setup(
+      name='car',
       version='0.0.1',
       description='Fun with the Tesla API',
       packages=['car'],
